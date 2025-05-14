@@ -1,9 +1,8 @@
 import lombok.Data;
 
-import java.util.concurrent.CompletableFuture;
-
 @Data
 public abstract class Conta implements IConta {
+
     private static final int AGENCIA_PADRAO = 1;
     private static int SEQUENCIAL = 1;
 
@@ -11,13 +10,13 @@ public abstract class Conta implements IConta {
     protected int numero;
     protected double saldo;
     protected Cliente cliente;
-    protected Cliente cpf;
+    protected Banco banco;
 
-    public Conta(Cliente cliente) {
-        this.agencia = Conta.AGENCIA_PADRAO;
+    public Conta(Cliente cliente, Banco banco) {
+        this.agencia = AGENCIA_PADRAO;
         this.numero = SEQUENCIAL++;
         this.cliente = cliente;
-        this.cpf = cpf;
+        this.banco = banco;
     }
 
     @Override
@@ -36,14 +35,12 @@ public abstract class Conta implements IConta {
         contaDestino.depositar(valor);
     }
 
-
     protected void imprimirInfosComuns() {
-       System.out.println("Cpf: " + cliente.getCpf());
-        System.out.println(String.format("Titular: %s", this.cliente.getNome()));
-        System.out.println(String.format("Agencia: %d", this.agencia));
-        System.out.println(String.format("Numero: %d", this.numero));
-        System.out.println(String.format("Saldo: %.2f \n", this.saldo));
+        System.out.println("Banco: " + banco.getNome());
+        System.out.println("Titular: " + cliente.getNome());
+        System.out.println("CPF: " + cliente.getCpf());
+        System.out.println("Agência: " + agencia);
+        System.out.println("Número: " + numero);
+        System.out.printf("Saldo: %.2f\n\n", saldo);
     }
-
-
 }

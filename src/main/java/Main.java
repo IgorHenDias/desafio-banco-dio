@@ -5,24 +5,26 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         Cliente cliente = new Cliente();
-        /*Cliente cpf = new Cliente();*/
+        Banco banco = new Banco();
 
-        System.out.println("Digite o nome do cliente: ");
+        System.out.print("Informe o nome do banco: ");
+        banco.setNome(sc.nextLine());
+
+        System.out.print("Informe o nome do cliente: ");
         cliente.setNome(sc.nextLine());
 
-        System.out.println("Digite o cpf do cliente: ");
+        System.out.print("Digite o CPF do cliente: ");
         cliente.setCpf(sc.nextLine());
 
-        Conta cc = new ContaCorrente(cliente);
-        Conta poupanca = new ContaPoupanca(cliente);
+        sc.close();
 
-        cc.depositar(100);
-        cc.transferir(100, poupanca);
+        Conta contaCorrente = new ContaCorrente(cliente, banco);
+        Conta contaPoupanca = new ContaPoupanca(cliente, banco);
 
-        cc.imprimirExtrato();
-        poupanca.imprimirExtrato();
+        contaCorrente.depositar(100);
+        contaCorrente.transferir(100, contaPoupanca);
 
+        contaCorrente.imprimirExtrato();
+        contaPoupanca.imprimirExtrato();
     }
-
-
 }
